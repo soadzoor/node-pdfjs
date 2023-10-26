@@ -21,7 +21,7 @@ loadingTask.promise.then(
       console.log('Page loaded');
 
       var viewport = page.getViewport({
-        scale: 2.643277698725903,
+        scale: 2.643277698725903, // you can increase this up to 9.48. Above 9.49, it gives blank results
         rotation: page.rotate,
         offsetX: -2048,
         offsetY: -1104.2329923985058,
