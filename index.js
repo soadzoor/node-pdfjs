@@ -27,6 +27,7 @@ loadingTask.promise.then(
         offsetY: -1104.2329923985058,
       });
 
+      // WITH THIS VIEWPORT BELOW IT GIVES BLANK RESULTS, HOWEVER, IN A WEBBROWSER, THE SAME VIEWPORT RENDERS FINE
       /* var viewport = page.getViewport({
         scale: 10.573110794903611,
         rotation: page.rotate,
