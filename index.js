@@ -1,4 +1,5 @@
-import { Canvas } from 'canvas';
+import { Canvas } from 'skia-canvas';
+// import { Canvas } from 'canvas';
 import * as fs from 'fs';
 import * as pdfjss from 'pdfjs-dist/legacy/build/pdf.js';
 import { pdfDataAsBase64 } from './constants.js';
@@ -28,12 +29,12 @@ loadingTask.promise.then(
       });
 
       // WITH THIS VIEWPORT BELOW IT GIVES BLANK RESULTS, HOWEVER, IN A WEBBROWSER, THE SAME VIEWPORT RENDERS FINE
-      /* var viewport = page.getViewport({
-        scale: 10.573110794903611,
-        rotation: page.rotate,
-        offsetX: -2048,
-        offsetY: -5823.068030405977,
-      }); */
+      // var viewport = page.getViewport({
+      //   scale: 10.573110794903611,
+      //   rotation: page.rotate,
+      //   offsetX: -2048,
+      //   offsetY: -5823.068030405977,
+      // });
 
       // Prepare canvas using PDF page dimensions
       var canvas = new Canvas(2048, 2048);
@@ -48,7 +49,7 @@ loadingTask.promise.then(
       renderTask.promise.then(function () {
         console.log('Page rendered');
 
-        fs.writeFileSync('FloorplanSection.png', canvas.toBuffer('image/png'));
+        fs.writeFileSync('FloorplanSection.png', canvas.toBuffer('png'));
       });
     });
   },
