@@ -1,14 +1,12 @@
-import { Canvas } from 'skia-canvas';
-// import { Canvas } from 'canvas';
+import { createCanvas } from '@napi-rs/canvas';
 import * as fs from 'fs';
-import * as pdfjss from 'pdfjs-dist/legacy/build/pdf.js';
+import * as pdfjs from 'pdfjs-dist';
 import { pdfDataAsBase64 } from './constants.js';
 import { convertBase64ToUint8 } from './utils.js';
-const pdfjs = pdfjss.default;
+
+pdfjs.GlobalWorkerOptions.workerSrc = 'pdfjs-dist/build/pdf.worker.mjs';
 
 // run `node index.js` in the terminal
-
-pdfjs.GlobalWorkerOptions.workerSrc = 'pdfjs-dist/build/pdf.worker.js';
 
 // Asynchronous download of PDF
 var loadingTask = pdfjs.getDocument(convertBase64ToUint8(pdfDataAsBase64));
@@ -37,7 +35,7 @@ loadingTask.promise.then(
       // });
 
       // Prepare canvas using PDF page dimensions
-      var canvas = new Canvas(2048, 2048);
+      var canvas = createCanvas(2048, 2048);
       var context = canvas.getContext('2d');
 
       // Render PDF page into canvas context
