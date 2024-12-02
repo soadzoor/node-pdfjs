@@ -1,15 +1,12 @@
-import { createCanvas } from '@napi-rs/canvas';
 import * as fs from 'fs';
-import * as pdfjs from 'pdfjs-dist';
+import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { pdfDataAsBase64 } from './constants.js';
 import { convertBase64ToUint8 } from './utils.js';
-
-pdfjs.GlobalWorkerOptions.workerSrc = 'pdfjs-dist/build/pdf.worker.mjs';
 
 // run `node index.js` in the terminal
 
 // Asynchronous download of PDF
-var loadingTask = pdfjs.getDocument(convertBase64ToUint8(pdfDataAsBase64));
+var loadingTask = getDocument(convertBase64ToUint8(pdfDataAsBase64));
 loadingTask.promise.then(
   function (pdf) {
     console.log('PDF loaded');
@@ -35,8 +32,17 @@ loadingTask.promise.then(
       // });
 
       // Prepare canvas using PDF page dimensions
-      var canvas = createCanvas(2048, 2048);
-      var context = canvas.getContext('2d');
+
+      // var canvas = createCanvas(2048, 2048);
+      // var context = canvas.getContext('2d');
+
+      const canvasFactory = pdf.canvasFactory;
+      const canvasAndContext = canvasFactory.create(
+        2048,
+        2048
+      );
+
+      const {context} = canvasAndContext;
 
       // Render PDF page into canvas context
       var renderContext = {
@@ -47,7 +53,7 @@ loadingTask.promise.then(
       renderTask.promise.then(function () {
         console.log('Page rendered');
 
-        fs.writeFileSync('FloorplanSection.png', canvas.toBuffer('png'));
+        fs.writeFileSync('FloorplanSection.png', canvas.toBuffer('image/png'));
       });
     });
   },
