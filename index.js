@@ -16,20 +16,20 @@ loadingTask.promise.then(
     pdf.getPage(pageNumber).then(function (page) {
       console.log('Page loaded');
 
-      var viewport = page.getViewport({
-        scale: 2.643277698725903, // you can increase this up to 9.48. Above 9.49, it gives blank results
-        rotation: page.rotate,
-        offsetX: -2048,
-        offsetY: -1104.2329923985058,
-      });
-
-      // WITH THIS VIEWPORT BELOW IT GIVES BLANK RESULTS, HOWEVER, IN A WEBBROWSER, THE SAME VIEWPORT RENDERS FINE
       // var viewport = page.getViewport({
-      //   scale: 10.573110794903611,
+      //   scale: 2.643277698725903, // you can increase this up to 9.48. Above 9.49, it gives blank results
       //   rotation: page.rotate,
       //   offsetX: -2048,
-      //   offsetY: -5823.068030405977,
+      //   offsetY: -1104.2329923985058,
       // });
+
+      // WITH THIS VIEWPORT BELOW IT GIVES BLANK RESULTS, HOWEVER, IN A WEBBROWSER, THE SAME VIEWPORT RENDERS FINE
+      var viewport = page.getViewport({
+        scale: 10.573110794903611,
+        rotation: page.rotate,
+        offsetX: -2048,
+        offsetY: -5823.068030405977,
+      });
 
       // Prepare canvas using PDF page dimensions
 
@@ -42,7 +42,7 @@ loadingTask.promise.then(
         2048
       );
 
-      const {context} = canvasAndContext;
+      const {context, canvas} = canvasAndContext;
 
       // Render PDF page into canvas context
       var renderContext = {
