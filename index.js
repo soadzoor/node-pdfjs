@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { getDocument } from "pdfjs-dist/build/pdf.mjs";
+import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { pdfDataAsBase64 } from './constants.js';
 import { convertBase64ToUint8 } from './utils.js';
 
